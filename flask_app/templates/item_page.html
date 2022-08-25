@@ -120,15 +120,16 @@
             <img class="" src="/static/{{product.img_url}}" alt="" />
           </div>
         </div>
-        {% if session['user_id']%}
         <div class="col-md-4">
           <div class="card p-4">
             <h1>${{product.price}}</h1>
+            {% if session['user_id']%}
             <form
               id="form"
               action="/cart/{{session['cart_id']}}/process"
               method="POST"
             >
+            
               <label for="size">Size:</label>
               <select name="size" id="size">
                 <option value="Small">Small</option>
@@ -155,9 +156,11 @@
               <p class="alert alert-danger mt-3">{{ message }}</p>
               {% endfor %}
             </form>
+            {% else %}
+            <p class="alert alert-danger mt-3">You must be logged in to add to cart!</p>
+            {% endif %}
           </div>
         </div>
-        {% endif %}
         <div class="col-md-6">
           <h1 class="pt-3 pb-3">Description:</h1>
           <h3>{{product.description}}</h3>
