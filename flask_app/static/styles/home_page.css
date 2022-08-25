@@ -256,7 +256,7 @@ p, li{
     #banner {
       left: 0;
       bottom: 5rem;
-      padding-bottom: 1rem;
+      padding-bottom: 0.5rem;
     }
     .spacer {
         margin-top: 2rem;
