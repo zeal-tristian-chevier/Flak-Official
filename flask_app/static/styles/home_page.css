@@ -252,6 +252,16 @@ p, li{
         margin-top: 2rem;
     }
 }
+@media screen and (max-width: 425px) {
+    #banner {
+      left: 0;
+      bottom: 5rem;
+      padding-bottom: 1rem;
+    }
+    .spacer {
+        margin-top: 2rem;
+    }
+}
 @media screen and (max-width: 343px) {
     .navbar-nav {
         flex-direction: column-reverse;
