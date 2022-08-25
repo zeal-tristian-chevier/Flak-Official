@@ -11,4 +11,5 @@ app.config['STRIPE_SECRETY_KEY'] = "sk_test_51LZfwfBpdBqI2NGfeg0WCAbt76TgguncRH6
 bcrypt = Bcrypt(app) 
 
 
-DATABASE = "flak_db"
+DATABASE = "v0wcgj8j1rpsnfv8"
+# DATABASE = "flak_db"
