@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../static/imgs/flak_logo_notransparent.jpeg"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nova+Square&family=Poiret+One&family=Roboto:wght@100;300;400;500&family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+      defer
+    ></script>
+  </head>
+  <style>
+    .navbar {
+      --bs-navbar-padding-y: 0;
+    }
+    .navbar-brand {
+      font-size: 3rem;
+      padding-bottom: 0;
+    }
+    img {
+      overflow: hidden;
+      object-fit: cover;
+    }
+
+    p {
+      font-size: 18px;
+    }
+    .bold {
+      -webkit-text-stroke: 1px black;
+    }
+    @media screen and (max-width: 767px) {
+      .card:first-of-type {
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        
+      }
+      .h1-shrink {
+      display: none !important;
+      }
+      .card-title {
+        padding-top: 0.5rem;
+      }
+      button {
+       margin: 0.5rem;
+      }
+      .row {
+        flex-direction: column-reverse;
+      }
+    }
+  </style>
+  <body style="font-family: 'Poiret One', cursive">
+    <nav class="navbar bg-light navbar-expand-sm">
+      <a class="navbar-brand" href="/">
+        <img
+          src="/static/imgs/flak_logo.png"
+          width="200"
+          height="60"
+          class="d-inline-block align-top"
+          alt=""
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbar">
+        <ul class="navbar-nav ps-4 pe-5">
+          <li class="nav-item h3 pe-3">
+            <a href="/" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item h3 pe-3">
+            <a href="/shop" class="nav-link">Shop</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% if cart.products|length > 0 %}
+    <div class="container" style="width: 80%" id="container">
+      <h1 class="h1-shrink pt-5 pb-5 ps-4 bold">Cart</h1>
+      <div class="justify-content-center">
+        <div class="row justify-content-around">
+          <div class="col-md-7">
+            {% for product in cart.products %}
+            <div
+              class="card d-flex flex-row pt-3 border-start-0 border-end-0 rounded-0"
+            >
+              <img
+                class=""
+                src="{{product.img_url}}"
+                alt="Card image cap"
+                width="100px"
+                height="100px"
+              />
+              <div class="card-body pt-0">
+                <h4 class="card-title bold">{{product.name}}</h4>
+                <p class="card-text">Size: {{product.size}}</p>
+                <p class="card-text bold">${{product.price}}</p>
+              </div>
+              <div class="card-body d-flex justify-content-around pt-0">
+                <div class="d-flex align-items-center gap-3">
+                <form action="/cart/{{session['cart_id']}}/update" method="POST">
+                <input class="bold" type="number" value="{{product.quantity}}" id="quantity" name="quantity" min="1" max="25" type="submit">
+                <input type="hidden" name="size" value="{{product.size}}">
+                <input type="hidden" name="product_id" value="{{product.id}}">
+                <button class="btn btn-secondary ms-1" type="submit">Update Cart</button>
+                <a class="btn btn-danger" href="/cart/{{session['cart_id']}}/{{product.id}}/{{product.size}}/delete">Delete</a>
+              </form>
+            </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3">
+              <div class="card-title ps-3">
+                <h4 class="pt-3 bold">Order Summary</h4>
+              </div>
+              <div class="card-body p-3">
+                <div class="d-flex justify-content-between">
+                  <p>Subtotal:</p>
+                  <p>${{subtotal}}.00</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p>Estimated Shipping:</p>
+                  <p>FREE</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p>Tax:</p>
+                  <p>TBD</p>
+                </div>
+                <div
+                  class="d-flex border-top border-secondary justify-content-between pt-3"
+                >
+                  <p class="bold">Total:</p>
+                  <p class="bold">${{subtotal}}.00</p>
+                </div>
+                <div class="" style="width: 100%">
+                    <button class="btn btn-dark text-light" type="submit" id="checkoutbtn">Proceed to Checkout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <h1 class="p-5">Your cart is empty</h1>
+      {% endif %}
+    </div>
+  </body>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const checkout_public_key = '{{checkout_public_key}}'
+    const checkout_session_id = "{{checkout_session_id}}"
+  </script>
+  <script src="{{ url_for('static', filename='/scripts/script-noajax.js')}}"></script>
+</html>

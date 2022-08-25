@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flak Home</title>
+    <link rel="icon" type="image/x-icon" href="../static/imgs/flak_logo_notransparent.jpeg">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nova+Square&family=Poiret+One&family=Roboto:wght@100;300;400;500&family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/home_page.css') }}"
+    />
+    <script src="../static/animations/animate.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+
+  </head>
+  <!--NAVBAR-->
+  <body class="bg-light">
+    <div class="container">
+      <nav
+        class="navbar navbar-expand-sm p-3 justify-content-center"
+      >
+      {% if session['user_id']%}
+      <div class="welcome me-4 navbar-brand">
+        Welcome, {{user.first_name}}
+      </div>
+      {% endif%}
+        <div>
+          <a
+            class="navbar-brand"
+            href="https://open.spotify.com/artist/0F4onsPFiUPbRy9lBlfLuK?si=SzF0IIBOQ8OQy9zcMvyG_Q" target="_blank"
+            ><i class="fab fa-spotify"></i
+          ></a>
+          <a
+            class="navbar-brand"
+            href="https://www.youtube.com/channel/UC01tCCHi8li_qH5AiRD8VZQ" target="_blank"
+            ><i class="fab fa-youtube"></i
+          ></a>
+          <a
+            class="navbar-brand"
+            href="https://www.instagram.com/flak.official/" target="_blank"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a class="navbar-brand" href="https://www.tiktok.com/@flak.official" target="_blank"
+            ><i class="fab fa-tiktok"></i
+          ></a>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div>
+          <div class="navbar-collapse collapse " id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/contact"
+                  >Contact Us <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/shop">Shop</a>
+              </li>
+              <li class="nav-item">
+                {% if session['user_id']%}
+                <a class="nav-link" href="/cart/{{session['cart_id']}}">Cart</a>
+                  {% else %}
+                  <a class="nav-link" href="/login">Cart</a>
+                  {% endif %}
+              </li>
+              <li class="nav-item">
+                {%if session['user_id']%}
+                {%if session['user_id'] == user.id%}
+                <a class="nav-link" href="/logout">Logout</a>
+                {% else %}
+                <a class="nav-link" href="/login">Login</a>
+                {% endif %}
+                {% else %}
+                <a class="nav-link" href="/login">Login</a>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!--About INFO-->
+    <section>
+      <div class="">
+        <div class="position-relative">
+          <div class="spacer"></div>
+          <a
+            href="/"
+            id="banner"
+            class="position-absolute animate__animated animate__backInUp animate__delay-0.75s"
+          >
+            <img
+              class="img-fluid"
+              src="../static/imgs/flak_logo_big.png"
+              alt=""
+            />
+          </a>
+
+          <img id="main-img" class="" src="../static/imgs/img6.jpg" alt="" />
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="mt-4 d-flex justify-content-around flex-wrap">
+        <div class="row row-1 d-flex justify-content-around">
+          <div class="about-title">
+            <h1>The band you least expected.</h1>
+            <div class="arrow-box">
+              <div class="arrow">
+                <div class="curve"></div>
+                <div class="point"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card">
+              <img class="card-img card-img-1" src="../static/imgs/img1.jpg" alt="" />
+              <div class="card-body">
+                <h2 class="card-title mb-5 mt-3">Who we are:</h2>
+                <p class="card-text">
+                  Flak is a three piece band full of lifelong friends from
+                  Centennial Colorado. Our love for music sparked a flame into
+                  the passion and drive we have for Rock n' Roll. Creating fast,
+                  edgy, and powerful but passionate riffs, we bring a sound and
+                  energy that fills ourselves with an animalistic sense of
+                  euphoria.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div
+              class="card card-top card-animate hide animate__backInRight animate__animated animate__delay-0.75s"
+            >
+              <div class="card-body">
+                <h2 class="card-title">Mission:</h2>
+                <p class="card-text">
+                  Our mission is to help bring bands back better than ever. We
+                  strive to build a community of friends and family around, to
+                  share these amazing experiences with.
+                </p>
+              </div>
+            </div>
+            <div
+              class="card card-bottom card-animate hide animate__backInRight animate__animated animate__delay-0.75s"
+            >
+              <div class="card-body">
+                <h2 class="card-title mb-3">Details:</h2>
+                <ul class="card-text">
+                  <li class="list-group-item">
+                    <span class="bold">Location:</span> Centennial, Colorado
+                  </li>
+                  <li class="list-group-item">
+                    <span class="bold">Started in:</span> 2019
+                  </li>
+                  <li class="list-group-item">
+                    <span class="bold">Genre:</span> Grunge, Punk, Rock n' Roll
+                  </li>
+                  <li class="list-group-item">
+                    <span class="bold">Lead Guitarist:</span> Dante Delaurier
+                  </li>
+                  <li class="list-group-item">
+                    <span class="bold">Bassist:</span> Ben Christ
+                  </li>
+                  <li class="list-group-item">
+                    <span class="bold">Dummer:</span> Evane Bartelmey
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--TICKETS-->
+    <section class="bg-dark d-flex justify-content-center flex-column align-items-center">
+      <div class="mt-5">
+        <div class="row">
+          <div class="about-title d-flex justify-content-center flex-column align-items-center">
+            <h1 class="text-light">Get Tickets to the Next Show</h1>
+            <a class="btn btn-light text-dark mt-5 btn-lg ticket-btn" href="https://www.etix.com/ticket/p/3775368/the-losers-club-whellocentralflak-relate-denver-globe-hall">TICKETS</a>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <div class="col">
+              <div class="d-flex justify-content-center">
+                <img class="img-fluid img-tickets" src="../static/imgs/img3.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--SHOP-->
+    <!-- <section class="p-5">
+      <div class="mt-4 mb-4 d-flex justify-content-around flex-column">
+        <div class="row d-flex justify-content-around">
+    
+          <div class="col-lg-12">
+          </div>
+        </div>
+        </div>
+      </div>
+    </section> -->
+  </body>
+</html>
