@@ -1,3 +1,4 @@
+from distutils.util import subst_vars
 from math import prod
 from statistics import quantiles
 from flask import Flask, render_template, redirect, session, request, url_for
@@ -83,13 +84,20 @@ def cart(id):
                 is_empty = False
         if not is_empty:      
             subtotal = 0
-
             line_items_actual = []
             for product in cart.products:
                 dict = {
-                'price' : product.stripe_id, 
-                'quantity': product.quantity
-                }
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': product.name,
+                        'images' : ["https://files.stripe.com/links/MDB8YWNjdF8xTFpmd2ZCcGRCcUkyTkdmfGZsX3Rlc3RfWDN2aDIwNXJQOVMxNmFLRHJITXdxWUlq000y4lt31L"],
+                        'description' : f"Size: {product.size}"
+                    },
+                    'unit_amount': product.price * 100,
+                    },
+                    'quantity': product.quantity,
+                    }
                 line_items_actual.append(dict)
                 subtotal += (product.price * product.quantity)
 
@@ -116,27 +124,6 @@ def cart(id):
                         'maximum': {
                         'unit': 'business_day',
                         'value': 7,
-                        },
-                    }
-                    }
-                },
-                {
-                    'shipping_rate_data': {
-                    'type': 'fixed_amount',
-                    'fixed_amount': {
-                        'amount': 1500,
-                        'currency': 'usd',
-                    },
-                    'display_name': 'Next day air',
-                    # Delivers in exactly 1 business day
-                    'delivery_estimate': {
-                        'minimum': {
-                        'unit': 'business_day',
-                        'value': 1,
-                        },
-                        'maximum': {
-                        'unit': 'business_day',
-                        'value': 1,
                         },
                     }
                     }
