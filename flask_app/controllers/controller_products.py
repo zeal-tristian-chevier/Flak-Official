@@ -9,11 +9,13 @@ from flask_app.models.model_products import Product
 from flask_app.models.model_carts import Cart
 
 import stripe
+from decouple import config
 
-app.config['STRIPE_PUBLIC_KEY'] = "pk_test_51LZfwfBpdBqI2NGfTcsVuhYX7cGryM01JYho5soGOJZUc631Toshd5bjjxFNmhqRV70E9rDw1XDdOd0VmpYyajNX003T3MoQAW"
-app.config['STRIPE_SECRET_KEY'] = "sk_test_51LZfwfBpdBqI2NGfeg0WCAbt76TgguncRH6nL6KtvErDSgmoSEkjTcOeRJFUZdAaPBaTReS4XoGIRUlC4qZyHntV00vJ7CMz5a"
 
-stripe.api_key = "sk_test_51LZfwfBpdBqI2NGfeg0WCAbt76TgguncRH6nL6KtvErDSgmoSEkjTcOeRJFUZdAaPBaTReS4XoGIRUlC4qZyHntV00vJ7CMz5a"
+app.config['STRIPE_PUBLIC_KEY'] = config('STRIPE_PUBLIC_KEY')
+app.config['STRIPE_SECRET_KEY'] = config('STRIPE_SECRET_KEY')
+
+stripe.api_key = config('STRIPE_SECRET_KEY')
 
     
 #CART PROCESS
