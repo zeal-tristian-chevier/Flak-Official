@@ -1,4 +1,4 @@
-# Flak Official - https://flakofficial.herokuapp.com/
+# Flak Official 
 
  A Band Promotion Website designed for a local band to promote previous shows and sell merchandise.
  
