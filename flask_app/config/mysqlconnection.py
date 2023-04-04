@@ -3,7 +3,6 @@ import pymysql.cursors
 # this class will give us an instance of a connection to our database
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
 class MySQLConnection:
     def __init__(self, db):
