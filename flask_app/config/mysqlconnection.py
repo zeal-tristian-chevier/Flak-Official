@@ -1,13 +1,18 @@
 # a cursor is the object we use to interact with the database
 import pymysql.cursors
 from decouple import config
+from flask_app import app
+
 # this class will give us an instance of a connection to our database
+app.config['SQL_HOST'] = config('SQL_HOST')
+app.config['SQL_USER'] = config('SQL_USER')
+app.config['SQL_PASSWORD'] = config('SQL_PASSWORD')
 class MySQLConnection:
     def __init__(self, db):
         # change the user and password as needed
-        connection = pymysql.connect(host = config('SQL_HOST'),
-                                    user = config('SQL_USER'), 
-                                    password = config('SQL_PASSWORD'), 
+        connection = pymysql.connect(host = app.config['SQL_HOST'],
+                                    user = app.config['SQL_USER'], 
+                                    password = app.config['SQL_PASSWORD'], 
                                     db = db,
                                     charset = 'utf8mb4',
                                     cursorclass = pymysql.cursors.DictCursor,
