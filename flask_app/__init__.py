@@ -8,5 +8,5 @@ app = Flask(__name__)
 
 bcrypt = Bcrypt(app) 
 
-DATABASE = config('SQL_DB')
+DATABASE = "bz1q1gbtsqegcc4di2gn"
 # DATABASE = "flak_db"
